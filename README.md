@@ -27,6 +27,18 @@ three instruction-tuned language models:
 - Qwen2.5-7B-Instruct
 - Mistral-7B-Instruct
 
+## Steering Overview
+
+<p align="center">
+  <img src="assets/steering_examples.png" width="560"
+       alt="Example of ER-, EX-, and IP-targeted activation steering at layer 15">
+</p>
+
+<p align="center"><em>
+The same seeker post produces different response changes when steering the ER,
+EX, or IP direction at layer 15.
+</em></p>
+
 ## Main Findings
 
 1. **EPITOME scores are steerable.** Layer 15 provides the most consistent
@@ -43,6 +55,31 @@ supportive-empathy dimensions. They should not be interpreted as evidence for
 a universal linear representation of empathy or as a substitute for human
 evaluation of perceived empathy.
 
+### Layer-wise Steering
+
+<p align="center">
+  <img src="assets/layer_sweep.png" width="100%"
+       alt="Layer sweep of ER, IP, and EX steering effects across Llama, Qwen, and Mistral">
+</p>
+
+<p align="center"><em>
+Target scores across layers and intervention strengths. Layer 15 is the most
+consistent shared operating point across the three models and dimensions.
+</em></p>
+
+### Persona-induced Shifts
+
+<p align="center">
+  <img src="assets/persona_subspace.png" width="100%"
+       alt="Fraction of persona-induced activation shifts captured by the ER, IP, and EX subspace">
+</p>
+
+<p align="center"><em>
+The ER/IP/EX subspace captures only 2.6--3.1% of persona-mean squared
+activation-shift magnitude at layer 15; most persona-induced displacement lies
+in the residual subspace.
+</em></p>
+
 ## Repository Structure
 
 ```text
@@ -50,6 +87,7 @@ src/       Experiment and evaluation entry points
 scripts/   Reproduction and analysis pipelines
 latex/     Paper source and figures
 docs/      Experiment notes and supporting documentation
+assets/    Images used in this README
 ```
 
 The public release will include a mapping from the paper's experiments and
