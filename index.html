@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Project page for Empathy Is Steerable but Multi-Axial, accepted to EMNLP 2026 Main Conference.">
+<meta name="theme-color" content="#FBFBFC">
+<title>Empathy Is Steerable but Multi-Axial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Space+Mono:wght@400;700&display=swap">
+
+<style>
+  :root {
+    --ground: #FBFBFC;
+    --surface: #FFFFFF;
+    --surface-sunk: #F2F3F6;
+    --line: #DDE0E7;
+    --line-soft: #EAECF1;
+    --ink: #14171D;
+    --ink-soft: #454C5A;
+    --muted: #6E7787;
+    --er: #B9741A;
+    --ip: #2B6CA8;
+    --ex: #1F7D57;
+    --er-wash: #FBF2E5;
+    --ip-wash: #EAF2FA;
+    --ex-wash: #E7F4EE;
+    --shadow: 0 1px 2px rgba(20, 23, 29, .05), 0 8px 24px rgba(20, 23, 29, .05);
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --mono: "Space Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --measure: 68ch;
+  }
+
+  :root:not([data-theme="light"]) {
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0F1115;
+      --surface: #171A21;
+      --surface-sunk: #12151B;
+      --line: #2A2F3A;
+      --line-soft: #21252E;
+      --ink: #E6E8EC;
+      --ink-soft: #B9BFCB;
+      --muted: #8B93A3;
+      --er: #E8A33D;
+      --ip: #5B9DD9;
+      --ex: #4FB286;
+      --er-wash: #241C0E;
+      --ip-wash: #121F2C;
+      --ex-wash: #10241C;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 12px 32px rgba(0, 0, 0, .3);
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0F1115;
+    --surface: #171A21;
+    --surface-sunk: #12151B;
+    --line: #2A2F3A;
+    --line-soft: #21252E;
+    --ink: #E6E8EC;
+    --ink-soft: #B9BFCB;
+    --muted: #8B93A3;
+    --er: #E8A33D;
+    --ip: #5B9DD9;
+    --ex: #4FB286;
+    --er-wash: #241C0E;
+    --ip-wash: #121F2C;
+    --ex-wash: #10241C;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 12px 32px rgba(0, 0, 0, .3);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 28px 96px;
+  }
+
+  .col {
+    max-width: var(--measure);
+    margin-inline: auto;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* ---------- masthead ---------- */
+
+  header.masthead {
+    border-bottom: 1px solid var(--line);
+    padding: 72px 0 44px;
+    margin-bottom: 56px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: 52px;
+    line-height: 1.12;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-wrap: balance;
+    margin: 18px 0 20px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  .authors {
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin: 0 0 6px;
+  }
+
+  .affil {
+    font-size: 15px;
+    color: var(--muted);
+    margin: 0 0 26px;
+  }
+
+  .venue {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--ink-soft);
+    background: var(--surface);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .links a {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 9px 15px;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+
+  .links a:hover { border-color: var(--muted); transform: translateY(-1px); }
+  .links a:focus-visible { outline: 2px solid var(--ip); outline-offset: 2px; }
+
+  /* ---------- prose ---------- */
+
+  h2 {
+    font-family: var(--serif);
+    font-size: 27px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.25;
+    margin: 0 0 4px;
+    text-wrap: balance;
+  }
+
+  section { margin-bottom: 68px; }
+  section > .col > p { margin: 0 0 18px; }
+  .sec-head { margin-bottom: 26px; }
+  .sec-head .eyebrow { margin-bottom: 10px; }
+
+  .lede {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  strong { font-weight: 600; }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: .88em;
+    padding: 1px 5px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .tag.er { color: var(--er); background: var(--er-wash); }
+  .tag.ip { color: var(--ip); background: var(--ip-wash); }
+  .tag.ex { color: var(--ex); background: var(--ex-wash); }
+
+  /* ---------- findings ---------- */
+
+  .findings {
+    display: grid;
+    gap: 1px;
+    background: var(--line-soft);
+    border: 1px solid var(--line-soft);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+
+  .finding {
+    background: var(--surface);
+    padding: 24px 26px;
+    display: grid;
+    grid-template-columns: 128px 1fr;
+    gap: 22px;
+    align-items: baseline;
+  }
+
+  .finding .stat {
+    font-family: var(--mono);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+  }
+
+  .finding .stat span {
+    display: block;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  .finding p { margin: 0; font-size: 16px; line-height: 1.6; }
+  .finding h3 { font-size: 17px; font-weight: 600; margin: 0 0 5px; }
+
+  @media (max-width: 620px) {
+    h1 { font-size: 38px; }
+    .finding { grid-template-columns: 1fr; gap: 12px; }
+  }
+
+  /* ---------- figures ---------- */
+
+  figure {
+    margin: 0 0 12px;
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: 3px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+
+  figure img { width: 100%; height: auto; display: block; border-radius: 2px; }
+
+  figcaption {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--muted);
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  figcaption b { color: var(--ink-soft); font-weight: 600; }
+
+  .wide { max-width: 940px; margin-inline: auto; }
+
+  /* ---------- geometry diagram ---------- */
+
+  .geo {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 34px;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: 3px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+
+  @media (max-width: 720px) {
+    .geo { grid-template-columns: 1fr; gap: 22px; }
+  }
+
+  .geo svg { width: 100%; height: auto; display: block; }
+  .geo-label { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0; }
+
+  .cos-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 11px; }
+
+  .cos-list li {
+    display: grid;
+    grid-template-columns: 76px 1fr 64px;
+    gap: 14px;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+
+  .cos-list .pair { color: var(--ink-soft); letter-spacing: 0; }
+  .cos-list .val { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); }
+
+  .bar { position: relative; height: 5px; background: var(--surface-sunk); border-radius: 3px; }
+  .bar i { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
+  .bar .zero { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--line); left: 50%; }
+
+  /* ---------- table ---------- */
+
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line-soft); border-radius: 3px; background: var(--surface); }
+
+  table { border-collapse: collapse; width: 100%; font-family: var(--mono); font-size: 12.5px; }
+
+  th, td {
+    padding: 11px 16px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    border-bottom: 1px solid var(--line-soft);
+    white-space: nowrap;
+  }
+
+  th {
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  th:first-child, td:first-child { text-align: left; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.diag { font-weight: 700; }
+  td.off { color: var(--muted); }
+  td.neg { color: var(--er); }
+
+  .note { font-size: 14px; color: var(--muted); margin-top: 12px; line-height: 1.55; }
+
+  /* ---------- pull ---------- */
+
+  .pull {
+    border-left: 2px solid var(--ip);
+    padding: 4px 0 4px 22px;
+    margin: 30px 0;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  /* ---------- footer ---------- */
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-top: 30px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  footer a { color: var(--ink-soft); }
+
+  pre.cite {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    line-height: 1.65;
+    background: var(--surface-sunk);
+    border: 1px solid var(--line-soft);
+    border-radius: 3px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    color: var(--ink-soft);
+    margin: 14px 0 26px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="col">
+      <p class="eyebrow">Interpretability &middot; Activation Steering</p>
+      <h1>Empathy Is Steerable<br><em>but Multi-Axial</em></h1>
+      <p class="authors">JuHeon Ha &middot; Byounghan Lee &middot; Yunseo Choi &middot; Kyung-Ah Sohn</p>
+      <p class="affil">Department of Artificial Intelligence, Ajou University</p>
+      <span class="venue">EMNLP 2026 &middot; Main Conference</span>
+      <div class="links">
+        <a href="https://github.com/hjhj97/Empathy-Is-Steerable-but-Multi-Axial">Code &amp; Artifacts</a>
+        <a href="https://github.com/behavioral-data/Empathy-Mental-Health">EPITOME Data</a>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="col">
+      <p class="lede">Supportive empathy is evaluated along several dimensions at once. We asked whether those evaluation dimensions correspond to directions a model can actually be steered along — independently.</p>
+      <p>Activation steering can control traits like honesty, refusal, and sycophancy by adding a direction to a model's residual stream. Empathy is harder: a response can acknowledge feeling, interpret a situation, or invite elaboration, and a single aggregate score hides which of these actually moved.</p>
+      <p>Using the <a href="https://github.com/behavioral-data/Empathy-Mental-Health">EPITOME</a> framework, which scores peer-support replies on <span class="tag er">Emotional Reactions</span>, <span class="tag ip">Interpretations</span>, and <span class="tag ex">Explorations</span>, we extracted one candidate direction per dimension in three instruction-tuned LLMs and intervened on each — measuring both its target effect and what it did to the other two.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="col sec-head">
+      <p class="eyebrow">What we found</p>
+      <h2>Steerable, but not separately</h2>
+    </div>
+    <div class="col">
+      <div class="findings">
+        <div class="finding">
+          <div class="stat">9/9<span>target effects</span></div>
+          <div>
+            <h3>A shared operating point exists</h3>
+            <p>At layer 15 and &alpha;&nbsp;=&nbsp;+1, every model–dimension pair moved its target score in the intended direction across Llama-3.1-8B, Qwen2.5-7B, and Mistral-7B. Later layers were model-dependent; the final layer was unstable.</p>
+          </div>
+        </div>
+        <div class="finding">
+          <div class="stat">&minus;0.22<span>ER under EX steering</span></div>
+          <div>
+            <h3>Steering one dimension moves the others</h3>
+            <p>Pushing <span class="tag ex">EX</span> up on Llama raised it by +0.57 — and pulled <span class="tag er">ER</span> down by 0.22. The directions are causally effective but not isolated controls.</p>
+          </div>
+        </div>
+        <div class="finding">
+          <div class="stat">~3%<span>of persona shift captured</span></div>
+          <div>
+            <h3>Persona effects live somewhere else</h3>
+            <p>Persona prompts change EPITOME scores substantially, yet the recovered ER/IP/EX span accounts for only 2.6–3.1% of the squared activation shift they induce. The remaining ~97% is structured, but outside this basis.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="col sec-head">
+      <p class="eyebrow">Method</p>
+      <h2>One direction per dimension</h2>
+    </div>
+    <div class="col">
+      <p>For each mechanism we built contrastive pools from human-annotated EPITOME labels — 100 replies scoring 1 or 2 against 100 scoring 0 — and took the mean difference of last-token residual-stream activations. Adding &alpha;·v at inference gives a steering knob; scoring the generations with the EPITOME classifiers gives the effect.</p>
+      <p>The design point that matters: we score <em>all three</em> dimensions after steering any one of them. Target effects alone would look like clean control.</p>
+    </div>
+    <div class="wide">
+      <figure>
+        <img src="assets/method_pipeline.png" alt="Pipeline: contrastive EPITOME pools feed vector extraction at layer 15, then steered generation is scored on all three mechanisms.">
+        <figcaption><b>Extraction and intervention.</b> Contrastive pools built from EPITOME labels yield one candidate direction per mechanism at the canonical layer, applied during generation and scored back on all three dimensions.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="col sec-head">
+      <p class="eyebrow">Behavior</p>
+      <h2>What steering actually changes</h2>
+    </div>
+    <div class="wide">
+      <figure>
+        <img src="assets/steering_examples.png" alt="One seeker post with three steered responses: ER adds emotional acknowledgment, IP adds an interpretation, EX adds a follow-up question.">
+        <figcaption><b>The same post, three directions.</b> <span class="tag er">ER</span> steering adds emotional acknowledgment, <span class="tag ip">IP</span> steering adds an interpretation of the seeker's situation, and <span class="tag ex">EX</span> steering adds a follow-up question inviting elaboration.</figcaption>
+      </figure>
+    </div>
+    <div class="col">
+      <p style="margin-top:26px">Across the layer sweep, the middle of the network is where this control is both effective and consistent between models — a result that matches prior contrastive-activation findings.</p>
+    </div>
+    <div class="wide">
+      <figure>
+        <img src="assets/layer_sweep.png" alt="Layer sweep showing mechanism-targeted steering effects across candidate layers for three models.">
+        <figcaption><b>Layer sweep.</b> Target effects across candidate layers and steering strengths. Layer 15 is the most consistent shared operating point; at the final valid layer, ER collapses from 1.03 to 0.005 on Mistral while IP rises sharply — behavior that varies by model and mechanism.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="col sec-head">
+      <p class="eyebrow">Geometry</p>
+      <h2>The directions overlap</h2>
+    </div>
+    <div class="col">
+      <p>If the three dimensions were independent axes, their vectors would be near-orthogonal. They are not. <span class="tag ip">IP</span> sits at a consistently negative angle to both of the others in all three models — the geometric counterpart of the behavioral spillovers.</p>
+    </div>
+
+    <div class="wide" style="margin-top:22px">
+      <div class="geo">
+        <svg viewBox="0 0 300 300" role="img" aria-label="Diagram of the three mechanism vectors at layer 15 on Llama, drawn at their measured angles: ER and EX nearly aligned, IP opposed to both.">
+          <circle cx="150" cy="160" r="104" fill="none" stroke="var(--line-soft)" stroke-width="1"></circle>
+          <circle cx="150" cy="160" r="52" fill="none" stroke="var(--line-soft)" stroke-width="1"></circle>
+          <line x1="150" y1="160" x2="150" y2="52" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 4"></line>
+
+          <!-- ER at 86 deg from IP baseline; drawn from measured cosines on Llama -->
+          <g stroke-width="2.5" stroke-linecap="round" fill="none">
+            <line x1="150" y1="160" x2="150" y2="58" stroke="var(--er)"></line>
+            <line x1="150" y1="160" x2="238" y2="108" stroke="var(--ex)"></line>
+            <line x1="150" y1="160" x2="88" y2="248" stroke="var(--ip)"></line>
+          </g>
+          <circle cx="150" cy="58" r="3.5" fill="var(--er)"></circle>
+          <circle cx="238" cy="108" r="3.5" fill="var(--ex)"></circle>
+          <circle cx="88" cy="248" r="3.5" fill="var(--ip)"></circle>
+
+          <text x="150" y="42" text-anchor="middle" class="geo-label" fill="var(--er)">ER</text>
+          <text x="254" y="102" text-anchor="middle" class="geo-label" fill="var(--ex)">EX</text>
+          <text x="74" y="266" text-anchor="middle" class="geo-label" fill="var(--ip)">IP</text>
+          <circle cx="150" cy="160" r="2.5" fill="var(--muted)"></circle>
+        </svg>
+
+        <div>
+          <p class="eyebrow" style="margin-bottom:14px">Pairwise cosine at layer 15</p>
+          <ul class="cos-list">
+            <li><span class="pair">ER &middot; EX</span><span class="bar"><span class="zero"></span><i style="left:50%;width:4.5%;background:var(--er)"></i></span><span class="val">+0.078</span></li>
+            <li><span class="pair">ER &middot; IP</span><span class="bar"><span class="zero"></span><i style="left:33%;width:17%;background:var(--ip)"></i></span><span class="val">&minus;0.293</span></li>
+            <li><span class="pair">EX &middot; IP</span><span class="bar"><span class="zero"></span><i style="left:24%;width:26%;background:var(--ip)"></i></span><span class="val">&minus;0.448</span></li>
+          </ul>
+          <p class="note">Llama-3.1-8B. The same sign pattern holds on Qwen2.5-7B (+0.126, &minus;0.322, &minus;0.463) and Mistral-7B (+0.091, &minus;0.248, &minus;0.533). Residualizing each vector against the other two weakens EX and IP control, so the shared component carries function — not just norm.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col" style="margin-top:34px">
+      <p class="eyebrow" style="margin-bottom:12px">Cross-mechanism deltas &middot; Llama-3.1-8B &middot; layer 15 &middot; &alpha; = +1</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th scope="col">Steering</th><th scope="col">&Delta;ER</th><th scope="col">&Delta;IP</th><th scope="col">&Delta;EX</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">ER vector</th><td class="diag">+0.08</td><td class="off neg">&minus;0.15</td><td class="off">+0.01</td></tr>
+            <tr><th scope="row">IP vector</th><td class="off neg">&minus;0.06</td><td class="diag">+0.32</td><td class="off">+0.02</td></tr>
+            <tr><th scope="row">EX vector</th><td class="off neg">&minus;0.22</td><td class="off neg">&minus;0.06</td><td class="diag">+0.57</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Diagonal cells are target effects; off-diagonal cells are spillovers, measured against the matching &alpha;&nbsp;=&nbsp;0 baseline. Every vector moves its own dimension — and at least one other.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="col sec-head">
+      <p class="eyebrow">Persona</p>
+      <h2>Where persona effects go</h2>
+    </div>
+    <div class="col">
+      <p>Persona prompts (&ldquo;You are an engineer.&rdquo;, &ldquo;You are a cynical person.&rdquo;) shift EPITOME scores by as much as 0.74 on ER. If those shifts moved along the recovered directions, a single steering vector could close persona-conditioned gaps.</p>
+      <p>They don't. Projecting each persona-mean activation shift onto the orthonormalized ER/IP/EX span captures only <strong>2.6–3.1%</strong> of its squared magnitude. The residual is not noise — its top five principal components explain 27–30% of residual variance — but it lies outside the basis these vectors recover.</p>
+    </div>
+    <div class="wide">
+      <figure>
+        <img src="assets/persona_subspace.png" alt="Decomposition showing the mechanism subspace captures a small fraction of persona-induced activation shift, with structured residual variation.">
+        <figcaption><b>Persona-shift decomposition.</b> Left: fraction of persona-mean squared activation shift captured by the ER/IP/EX subspace. Right: persona centroids in the first two residual principal components, after removing the mechanism-subspace component.</figcaption>
+      </figure>
+    </div>
+    <div class="col">
+      <p class="pull">Dimensions used to evaluate supportive empathy need not provide independent intervention targets.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="col sec-head">
+      <p class="eyebrow">Control analysis</p>
+      <h2>Is the coupling an artifact?</h2>
+    </div>
+    <div class="col">
+      <p>A natural worry: extraction pools drawn on one label are imbalanced on the others, so a &ldquo;direction for ER&rdquo; might partly encode the absence of IP and EX. We tested it. On Llama at layer 15, we re-extracted vectors from pools <strong>exactly matched</strong> on the 0/1/2 levels of both non-target labels, and compared them against unmatched pools drawn from the same candidate set — holding target-label counts, the 200 evaluation seekers, and decoding fixed.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th scope="col">Vector</th><th scope="col">Matched &Delta;target</th><th scope="col">95% CI</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">ER</th><td>+0.065</td><td>[0.005, 0.125]</td></tr>
+            <tr><th scope="row">EX</th><td>+0.610</td><td>[0.460, 0.760]</td></tr>
+            <tr><th scope="row">IP</th><td>+0.270</td><td>[0.130, 0.410]</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Target effects survive exact matching, and none of the differences between arms is significant. Matching does attenuate one spillover — ER suppression under EX steering, from &minus;0.12 to &minus;0.05 — so pool composition contributes to some coupling without being necessary for steerability. This is a one-seed, Llama-only check; it does not establish that the pattern is specific to empathy.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="col sec-head">
+      <p class="eyebrow">Scope</p>
+      <h2>What this does and doesn't show</h2>
+    </div>
+    <div class="col">
+      <p>All claims are restricted to supportive empathy as operationalized by EPITOME in online peer support. EPITOME defines a specific, domain-bound construct; what counts as empathic elsewhere may differ, and we make no claim about empathy in general.</p>
+      <p>Evaluation is proxy-based throughout — EPITOME classifiers and a GPT-5-mini judge, which agree on the ER and EX directional patterns but less on IP. We collected no human annotations, so these results describe proxy-scored expression, not perceived empathic support. The persona set is narrow and US-centric, used as controlled probes rather than a representative demographic sample. Whether partial separability is specific to empathy remains open; that would need a matched non-empathy multidimensional control.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="col">
+      <p class="eyebrow" style="margin-bottom:10px">Citation</p>
+      <pre class="cite">@inproceedings{ha2026empathy,
+  title     = {Empathy Is Steerable but Multi-Axial:
+               Mechanism Geometry and Persona Effects in LLMs},
+  author    = {Ha, JuHeon and Lee, Byounghan and
+               Choi, Yunseo and Sohn, Kyung-Ah},
+  booktitle = {Proceedings of EMNLP 2026},
+  year      = {2026}
+}</pre>
+      <p>Code, aggregate result tables, and reproduction instructions are on <a href="https://github.com/hjhj97/Empathy-Is-Steerable-but-Multi-Axial">GitHub</a>. EPITOME dialogue text is not redistributed; the repository ships preparation scripts that rebuild the filtered splits from the original release.</p>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
