@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the EMNLP 2026 paper."
+title: "Empathy Is Steerable but Multi-Axial: Mechanism Geometry and Persona Effects in LLMs"
+type: software
+authors:
+  - family-names: Ha
+    given-names: JuHeon
+  - family-names: Lee
+    given-names: Byounghan
+  - family-names: Choi
+    given-names: Yunseo
+  - family-names: Sohn
+    given-names: Kyung-Ah
+repository-code: "https://github.com/hjhj97/Empathy-Is-Steerable-but-Multi-Axial"
+license: MIT
+date-released: 2026-08-29

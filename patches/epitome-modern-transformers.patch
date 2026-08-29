@@ -1,0 +1,9 @@
+diff --git a/src/models/models.py b/src/models/models.py
+--- a/src/models/models.py
++++ b/src/models/models.py
+@@ -12,5 +12,1 @@
+-from transformers import GPT2Model
+-from transformers import AutoModelWithLMHead, AutoTokenizer
+-
+-
+ ROBERTA_PRETRAINED_MODEL_ARCHIVE_MAP = {

@@ -4,9 +4,9 @@ Official repository for **"Empathy Is Steerable but Multi-Axial: Mechanism
 Geometry and Persona Effects in LLMs,"** accepted to the **EMNLP 2026 Main
 Conference**.
 
-> **Release status:** The camera-ready artifact release is in progress. The
-> cleaned code, environment specification, run scripts, and reproducibility
-> instructions will be added before the final release.
+Reproduction instructions, data preparation, deterministic split construction,
+and the paper-to-script mapping are provided in
+[`REPRODUCIBILITY.md`](REPRODUCIBILITY.md).
 
 ## Overview
 
@@ -83,32 +83,39 @@ in the residual subspace.
 ## Repository Structure
 
 ```text
-src/       Experiment and evaluation entry points
-scripts/   Reproduction and analysis pipelines
-latex/     Paper source and figures
-docs/      Experiment notes and supporting documentation
-assets/    Images used in this README
+src/        Experiment and evaluation entry points
+scripts/    Reproduction and analysis pipelines
+artifacts/  Aggregate, text-free results used to audit paper values
+patches/    Compatibility patch for the EPITOME classifiers
+assets/     Images used in this README
 ```
 
-The public release will include a mapping from the paper's experiments and
-tables to their corresponding commands and output schemas.
+The mapping from the paper's experiments to their corresponding commands is in
+[`REPRODUCIBILITY.md`](REPRODUCIBILITY.md).
 
 ## Data
 
 The experiments use the EPITOME mental-health support data and, for the
 out-of-domain analysis, EmpatheticDialogues. Source dialogue text is not
 redistributed in this repository. Dataset acquisition and split-reconstruction
-instructions will be provided subject to the original datasets' licenses.
+instructions are provided in [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md), subject
+to the original datasets' licenses.
 
 ## Reproducibility
 
-The final artifact will provide:
+The repository provides:
 
 - environment and dependency specifications;
 - vector extraction and activation-steering scripts;
 - EPITOME and LLM-judge evaluation pipelines;
 - layer-sweep, persona, residualization, and robustness analyses; and
 - commands and metadata needed to reconstruct the reported splits.
+
+Full model generations, source dialogue text, activation tensors, and model
+checkpoints are not redistributed. The files under `artifacts/` contain only
+aggregate results and can be regenerated from the experiment outputs.
+
+See [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md) for setup and commands.
 
 ## Citation
 
@@ -123,5 +130,8 @@ The ACL Anthology citation will be added after publication.
 
 ## License
 
-Code and data-release terms will be specified with the artifact release. The
-original datasets remain subject to their respective licenses.
+The original code in this repository is released under the MIT License. The
+datasets, model weights, and third-party repositories used by the experiments
+remain subject to their respective licenses and terms. They are not
+redistributed here. The compatibility patch under `patches/` does not grant
+rights to the upstream EPITOME source code.

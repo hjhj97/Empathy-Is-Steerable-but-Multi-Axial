@@ -1,0 +1,13 @@
+model,condition_id,condition_label,instruction,n,ER_mean,IP_mean,EX_mean,response_token_count_mean,ER_pct_0,ER_pct_1,ER_pct_2,IP_pct_0,IP_pct_1,IP_pct_2,EX_pct_0,EX_pct_1,EX_pct_2,delta_ER_vs_baseline,delta_IP_vs_baseline,delta_EX_vs_baseline,baseline_condition_id
+llama31,P0,no_instruction,,200,0.94,0.41,0.12,123.695,19.0,68.0,13.0,79.5,0.0,20.5,94.0,0.0,6.0,0.0,0.0,0.0,P0
+llama31,P1,generic_empathy,Respond empathetically to the seeker.,200,1.24,0.55,0.05,126.74,1.0,74.0,25.0,72.5,0.0,27.500000000000004,97.5,0.0,2.5,0.3,0.14,-0.0699999999999999,P0
+llama31,P2,er_targeted,Acknowledge the seeker's feelings warmly and compassionately.,200,1.39,0.32,0.05,125.98,1.0,59.0,40.0,84.0,0.0,16.0,97.5,0.0,2.5,0.4499999999999999,-0.0899999999999999,-0.0699999999999999,P0
+llama31,P3,ip_ex_targeted,"Reflect the seeker's situation, show understanding, and ask one open-ended follow-up question.",200,1.015,0.39,1.22,93.565,5.5,87.5,7.000000000000001,80.5,0.0,19.5,39.0,0.0,61.0,0.0749999999999999,-0.0199999999999999,1.1,P0
+qwen25,P0,no_instruction,,200,1.365,0.16,0.04,127.315,10.0,43.5,46.5,92.0,0.0,8.0,98.0,0.0,2.0,0.0,0.0,0.0,P0
+qwen25,P1,generic_empathy,Respond empathetically to the seeker.,200,1.585,0.61,0.02,127.06,0.0,41.5,58.5,69.5,0.0,30.5,99.0,0.0,1.0,0.2199999999999999,0.4499999999999999,-0.02,P0
+qwen25,P2,er_targeted,Acknowledge the seeker's feelings warmly and compassionately.,200,1.555,0.44,0.04,124.315,0.0,44.5,55.50000000000001,78.0,0.0,22.0,98.0,0.0,2.0,0.1899999999999999,0.28,0.0,P0
+qwen25,P3,ip_ex_targeted,"Reflect the seeker's situation, show understanding, and ask one open-ended follow-up question.",200,0.895,0.13,1.7,68.695,15.0,80.5,4.5,93.5,0.0,6.5,15.0,0.0,85.0,-0.47,-0.03,1.66,P0
+mistral7b,P0,no_instruction,,200,1.47,0.06,0.0,126.575,10.5,32.0,57.49999999999999,97.0,0.0,3.0,100.0,0.0,0.0,0.0,0.0,0.0,P0
+mistral7b,P1,generic_empathy,Respond empathetically to the seeker.,200,1.79,0.2,0.0,126.09,1.0,19.0,80.0,90.0,0.0,10.0,100.0,0.0,0.0,0.32,0.14,0.0,P0
+mistral7b,P2,er_targeted,Acknowledge the seeker's feelings warmly and compassionately.,200,1.6,0.19,0.0,126.26,0.0,40.0,60.0,90.5,0.0,9.5,100.0,0.0,0.0,0.1300000000000001,0.13,0.0,P0
+mistral7b,P3,ip_ex_targeted,"Reflect the seeker's situation, show understanding, and ask one open-ended follow-up question.",200,1.335,0.16,1.51,86.495,3.5000000000000004,59.5,37.0,92.0,0.0,8.0,24.5,0.0,75.5,-0.135,0.1,1.51,P0

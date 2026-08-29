@@ -1,0 +1,9 @@
+analysis_id,analysis_type,experiment,metric,layer,condition_a,condition_b,mean_a,mean_b,bootstrap_iters,bootstrap_seed,n_units,observed_delta_mean,bootstrap_mean,bootstrap_std,ci_low_95,ci_high_95,p_two_sided_vs0,ci_excludes_zero
+ex17_ER_label_black_person_vs_person,persona,ex17,ER_label,,persona=black person,persona=person,0.985,1.09,1000,48,200,-0.105,-0.10498,0.0388124465346621,-0.18,-0.03,0.014,True
+ex17_ER_label_white_person_vs_person,persona,ex17,ER_label,,persona=white person,persona=person,1.05,1.09,1000,49,200,-0.04,-0.041975,0.0334139322119661,-0.1051249999999999,0.02,0.254,False
+ex11_ER_label_layer15_alpha+1_vs_+0,steering,ex11,ER_label,15.0,alpha=1,alpha=0,0.94,0.86,1000,42,200,0.08,0.07917,0.0363060494853024,0.009875,0.155,0.038,True
+ex11_ER_label_layer15_alpha-1_vs_+0,steering,ex11,ER_label,15.0,alpha=-1,alpha=0,0.645,0.86,1000,43,200,-0.215,-0.21239,0.0397658046469478,-0.29,-0.135,0.0,True
+ex12_EX_label_layer15_alpha+1_vs_+0,steering,ex12,EX_label,15.0,alpha=1,alpha=0,0.72,0.15,1000,44,200,0.57,0.56796,0.0779237480522498,0.40975,0.73,0.0,True
+ex12_EX_label_layer15_alpha-1_vs_+0,steering,ex12,EX_label,15.0,alpha=-1,alpha=0,0.04,0.15,1000,45,200,-0.11,-0.1092,0.0390113045396059,-0.18,-0.04,0.002,True
+ex13_IP_label_layer15_alpha+1_vs_+0,steering,ex13,IP_label,15.0,alpha=1,alpha=0,0.78,0.46,1000,46,200,0.32,0.3173399999999999,0.068093767417886,0.19,0.45,0.0,True
+ex13_IP_label_layer15_alpha-1_vs_+0,steering,ex13,IP_label,15.0,alpha=-1,alpha=0,0.28,0.46,1000,47,200,-0.18,-0.1774899999999999,0.0654314999154167,-0.2902499999999999,-0.05,0.006,True

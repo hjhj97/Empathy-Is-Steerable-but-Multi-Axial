@@ -1,0 +1,15 @@
+# Reference release environment. Install a CUDA-compatible PyTorch 2.5.1
+# build separately before installing this file.
+accelerate==1.13.0
+datasets==4.0.0
+matplotlib==3.10.8
+numpy==1.26.4
+openai==2.31.0
+pandas==2.3.3
+safetensors==0.7.0
+scipy==1.14.1
+seaborn==0.13.2
+sentencepiece==0.2.1
+tokenizers==0.22.2
+tqdm==4.67.3
+transformers==5.5.3
