@@ -4,7 +4,7 @@ Official repository for **"Empathy Is Steerable but Multi-Axial: Mechanism
 Geometry and Persona Effects in LLMs,"** accepted to the **EMNLP 2026 Main
 Conference**.
 
-[Paper (PDF)](Empathy_Is_Steerable_But_Multi_Axial__Mechanism_Geometry_and_Persona_Effects_in_LLM_260830.pdf)
+[Paper (PDF)](Empathy_Is_Steerable_But_Multi_Axial__Mechanism_Geometry_and_Persona_Effects_in_LLM_camera.pdf)
 &nbsp;&nbsp;|&nbsp;&nbsp;
 [Reproducibility Guide](REPRODUCIBILITY.md)
 &nbsp;&nbsp;|&nbsp;&nbsp;
