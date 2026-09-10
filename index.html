@@ -198,6 +198,32 @@
   }
 
   .links a:hover { border-color: var(--muted); transform: translateY(-1px); }
+
+  .interactive-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 26px;
+    padding: 20px 24px;
+    border: 1px solid #398993;
+    border-radius: 12px;
+    background: linear-gradient(120deg, #174D66, #176556);
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(23, 77, 102, .2);
+    font-family: system-ui, sans-serif;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .interactive-cta strong { display: block; font-size: 20px; line-height: 1.3; }
+  .interactive-cta small { display: block; margin-top: 5px; font-size: 14px; line-height: 1.5; color: #E0F3F0; }
+  .interactive-cta svg { flex-shrink: 0; }
+  .interactive-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(23, 77, 102, .3); }
+  .interactive-cta:focus-visible { outline: 3px solid var(--ip); outline-offset: 4px; }
+  @media (max-width: 620px) {
+    .interactive-cta { padding: 18px; gap: 12px; }
+    .interactive-cta strong { font-size: 18px; }
+  }
   .links a:focus-visible { outline: 2px solid var(--ip); outline-offset: 2px; }
 
   /* ---------- prose ---------- */
@@ -431,8 +457,11 @@
       <p class="authors">JuHeon Ha &middot; Byounghan Lee &middot; Yunseo Choi &middot; Kyung-Ah Sohn</p>
       <p class="affil">Department of Artificial Intelligence, Ajou University</p>
       <span class="venue">EMNLP 2026 &middot; Main Conference</span>
+      <a class="interactive-cta" href="interactive.html">
+        <span><strong>Explore the Interactive Paper</strong><small>Discover the method and findings through interactive visuals.</small></span>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>
+      </a>
       <div class="links">
-        <a href="interactive.html">Interactive Page</a>
         <a href="https://github.com/hjhj97/Empathy-Is-Steerable-but-Multi-Axial">Code &amp; Artifacts</a>
         <a href="https://github.com/behavioral-data/Empathy-Mental-Health">EPITOME Data</a>
       </div>

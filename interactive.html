@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="An interactive introduction to Empathy Is Steerable but Multi-Axial: Mechanism Geometry and Persona Effects in LLMs.">
   <meta name="theme-color" content="#090b10">
+  <script>
+    (() => {
+      let theme;
+      try { theme = localStorage.getItem('empathy-interactive-theme'); } catch {}
+      if (theme !== 'light' && theme !== 'dark') {
+        theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.dataset.theme = theme;
+      document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#fafbfc' : '#090b10';
+    })();
+  </script>
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Empathy Is Steerable but Multi-Axial — Interactive Paper">
@@ -37,6 +48,7 @@
 
   <style>
     :root {
+      color-scheme: dark;
       --bg: #090b10;
       --bg-soft: #0e1118;
       --panel: rgba(18, 22, 31, .76);
@@ -56,6 +68,23 @@
       --mono: var(--sans);
       --math: "STIX Two Math", "Cambria Math", "STIX Two Text", serif;
       --progress: 0;
+    }
+
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #fafbfc;
+      --bg-soft: #f0f3f7;
+      --panel: rgba(255,255,255,.92);
+      --panel-solid: #fff;
+      --line: rgba(31,44,63,.15);
+      --line-strong: rgba(31,44,63,.3);
+      --ink: #17202c;
+      --ink-soft: #445164;
+      --muted: #5d6879;
+      --er: #b74420;
+      --ip: #245fa8;
+      --ex: #08774b;
+      --violet: #7050b6;
     }
 
     * { box-sizing: border-box; }
@@ -187,6 +216,29 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+      align-self: stretch;
+      margin-left: auto;
+      padding: 0 10px;
+      border: 0;
+      border-left: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      font: 11px var(--sans);
+      cursor: pointer;
+    }
+    .theme-toggle:hover { background: var(--line); }
+    .theme-toggle:focus-visible { outline: 2px solid var(--ip); outline-offset: -2px; }
+    .reading-bar { gap: 12px; }
+    #reading-section { min-width: 0; }
+    .theme-toggle .moon { display: none; }
+    [data-theme="light"] .theme-toggle .sun { display: none; }
+    [data-theme="light"] .theme-toggle .moon { display: block; }
 
     .back-to-top {
       position: fixed;
@@ -1933,6 +1985,44 @@
     .method-equation > mjx-container { max-width: 100%; }
     .method-equation > mjx-container > svg { max-width: 100%; height: auto; }
 
+    /* Light surfaces and contrast for elements with dark-mode-specific paint. */
+    [data-theme="light"] .reading-bar { background: rgba(250,251,252,.96); }
+    [data-theme="light"] .progress { background: var(--line); }
+    [data-theme="light"] .chapter-nav a { border-color: var(--line-strong); }
+    [data-theme="light"] .chapter-nav a::after { background: var(--panel-solid); }
+    [data-theme="light"] .premise .muted { color: var(--muted); }
+    [data-theme="light"] .sticky-visual,
+    [data-theme="light"] .method-sticky { background: linear-gradient(145deg, #fff, #edf2f8); box-shadow: 0 16px 50px rgba(31,44,63,.08); }
+    [data-theme="light"] .sticky-visual::before,
+    [data-theme="light"] .method-sticky::before { background-image: radial-gradient(circle, rgba(31,44,63,.18) 1px, transparent 1px); }
+    [data-theme="light"] .geo-grid { stroke: var(--line); }
+    [data-theme="light"] .axis-track,
+    [data-theme="light"] .method-rail i { background: var(--line-strong); }
+    [data-theme="light"] .method-visual[data-state="0"] .method-rail i:nth-child(1),
+    [data-theme="light"] .method-visual[data-state="1"] .method-rail i:nth-child(-n+2),
+    [data-theme="light"] .method-visual[data-state="2"] .method-rail i:nth-child(-n+3),
+    [data-theme="light"] .method-visual[data-state="3"] .method-rail i:nth-child(-n+4),
+    [data-theme="light"] .method-visual[data-state="4"] .method-rail i:nth-child(-n+5) { background: var(--ip); }
+    [data-theme="light"] .persona-ring { background: var(--line); }
+    [data-theme="light"] .persona-viz[data-state="1"] .persona-ring,
+    [data-theme="light"] .persona-viz[data-state="2"] .persona-ring { background: conic-gradient(var(--violet) 0 3%, var(--line) 3% 100%); }
+    [data-theme="light"] .cosine-readout,
+    [data-theme="light"] .score-scale div,
+    [data-theme="light"] .mechanism-card,
+    [data-theme="light"] .method-equation,
+    [data-theme="light"] .citation { background: var(--bg-soft); }
+    [data-theme="light"] .pipeline-box { background: var(--panel-solid); }
+    [data-theme="light"] .pipeline-box.high { background: #e7f4ed; }
+    [data-theme="light"] .pipeline-box.low { background: #fff0e9; }
+    [data-theme="light"] .pipeline-box.result { background: #eaf1fb; }
+    [data-theme="light"] .pipeline-layer { background: #e6eef8; border-color: var(--line-strong); }
+    [data-theme="light"] .pipeline-layer.target { background: #def1e7; border-color: var(--ex); }
+    @media (max-width: 900px) {
+      [data-theme="light"] .step-card { box-shadow: 0 12px 28px rgba(31,44,63,.08); }
+    }
+    [data-theme="light"] .back-to-top:hover { background: var(--bg-soft); }
+    [data-theme="light"] .button.primary:hover { background: #2b394b; color: #fff; }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after {
@@ -1949,7 +2039,14 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
-  <header class="reading-bar" aria-label="Current section"><span id="reading-section">Introduction</span></header>
+  <header class="reading-bar" aria-label="Current section">
+    <span id="reading-section">Introduction</span>
+    <button class="theme-toggle" type="button" aria-label="Switch color theme">
+      <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"/></svg>
+      <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 15A8.5 8.5 0 0 1 9 4a8.5 8.5 0 1 0 11 11Z"/></svg>
+      <span class="theme-toggle-label">Theme</span>
+    </button>
+  </header>
   <button class="back-to-top" type="button" aria-label="Back to top" title="Back to top">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>
   </button>
@@ -2480,6 +2577,19 @@ Response:</code>
 
     (() => {
       const root = document.documentElement;
+      const themeToggle = document.querySelector('.theme-toggle');
+      const syncThemeButton = () => {
+        const light = root.dataset.theme === 'light';
+        themeToggle.querySelector('.theme-toggle-label').textContent = light ? 'Dark' : 'Light';
+        themeToggle.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+        document.querySelector('meta[name="theme-color"]').content = light ? '#fafbfc' : '#090b10';
+      };
+      themeToggle.addEventListener('click', () => {
+        root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+        try { localStorage.setItem('empathy-interactive-theme', root.dataset.theme); } catch {}
+        syncThemeButton();
+      });
+      syncThemeButton();
       const progressBar = document.querySelector('.progress');
       const heroOrbit = document.querySelector('.hero-orbit');
       const navItems = [...document.querySelectorAll('.chapter-nav a')];
