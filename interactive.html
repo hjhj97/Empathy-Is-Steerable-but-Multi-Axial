@@ -19,7 +19,21 @@
   <link rel="canonical" href="https://hjhj97.github.io/Empathy-Is-Steerable-but-Multi-Axial/interactive.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,500&family=STIX+Two+Math&display=swap" rel="stylesheet">
+  <script>
+    window.MathJax = {
+      output: { font: 'mathjax-newcm', scale: 1, linebreaks: { inline: false } },
+      svg: { fontCache: 'none' },
+      startup: {
+        typeset: false,
+        pageReady: async () => {
+          await MathJax.startup.defaultPageReady();
+          await window.renderPaperMath();
+        }
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
 
   <style>
     :root {
@@ -39,7 +53,8 @@
       --page: min(1180px, calc(100vw - 48px));
       --serif: "Newsreader", Georgia, serif;
       --sans: "Manrope", system-ui, sans-serif;
-      --mono: "DM Mono", ui-monospace, monospace;
+      --mono: var(--sans);
+      --math: "STIX Two Math", "Cambria Math", "STIX Two Text", serif;
       --progress: 0;
     }
 
@@ -1149,7 +1164,7 @@
     .method-rail {
       display: grid;
       margin-top: 18px;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 7px;
     }
 
@@ -1163,7 +1178,8 @@
     .method-visual[data-state="0"] .method-rail i:nth-child(1),
     .method-visual[data-state="1"] .method-rail i:nth-child(-n+2),
     .method-visual[data-state="2"] .method-rail i:nth-child(-n+3),
-    .method-visual[data-state="3"] .method-rail i:nth-child(-n+4) {
+    .method-visual[data-state="3"] .method-rail i:nth-child(-n+4),
+    .method-visual[data-state="4"] .method-rail i:nth-child(-n+5) {
       background: var(--ip);
       box-shadow: 0 0 13px rgba(115,169,255,.48);
     }
@@ -1182,12 +1198,14 @@
       flex-direction: column;
     }
 
-    .method-stage svg {
+    .method-stage > svg {
       display: block;
       width: min(100%, 680px);
       height: auto;
       overflow: visible;
     }
+
+    .method-mobile { display: none; }
 
     .mv-grid { fill: none; stroke: rgba(255,255,255,.07); }
     .mv-box { fill: rgba(9,11,16,.7); stroke: var(--line-strong); }
@@ -1276,7 +1294,8 @@
     .method-visual[data-state="0"] .method-status span:nth-child(1),
     .method-visual[data-state="1"] .method-status span:nth-child(2),
     .method-visual[data-state="2"] .method-status span:nth-child(3),
-    .method-visual[data-state="3"] .method-status span:nth-child(4) {
+    .method-visual[data-state="3"] .method-status span:nth-child(4),
+    .method-visual[data-state="4"] .method-status span:nth-child(5) {
       opacity: 1;
       transform: none;
     }
@@ -1506,6 +1525,22 @@
 
     @media (max-width: 900px) {
       :root { --page: min(100% - 34px, 720px); }
+      .hero-deck { font-size: clamp(20px, 2.4vw, 25px); }
+      .hero-meta { font-size: 13px; }
+      .chapter-head > p { font-size: 20px; }
+      .dataset-copy p,
+      .scope-card p { font-size: 19px; }
+      .mechanism-card h4 { font-size: 18px; }
+      .mechanism-card p,
+      .proxy-note p { font-size: 16px; }
+      .meta-cell strong { font-size: 14.5px; }
+      .finding-card h3 { font-size: 20px; }
+      .finding-card p { font-size: 17px; }
+      .authors { font-size: 18px; }
+      .citation,
+      .footer-bottom { font-size: 12px; }
+      .step-index { font-size: 13px; }
+      .inline-prompt { font-size: 12px; overflow-wrap: anywhere; }
       .progress {
         position: fixed;
         top: 0;
@@ -1587,18 +1622,18 @@
         box-shadow: 0 16px 40px rgba(9, 11, 16, .9), 0 4px 16px rgba(0, 0, 0, .4);
       }
       .step-card h2 {
-        font-size: clamp(24px, 6.2vw, 32px);
+        font-size: clamp(29px, 7.4vw, 38px);
         margin: 8px 0 12px;
         line-height: 1.05;
         letter-spacing: -.03em;
       }
       .step-card h3 {
-        font-size: clamp(18px, 4.8vw, 22px);
+        font-size: clamp(22px, 5.8vw, 26px);
         margin: 6px 0 10px;
         line-height: 1.15;
       }
       .step-card p {
-        font-size: 14.5px;
+        font-size: 17.5px;
         line-height: 1.5;
       }
       .step-card p + p { margin-top: 10px; }
@@ -1670,7 +1705,9 @@
       .top-actions a { padding: 6px 9px; font-size: 12px; }
       h1 { font-size: clamp(44px, 14vw, 68px); }
       h1 span { transform: translateX(0); }
-      .hero-deck { font-size: 15px; }
+      .hero-deck { font-size: 18px; }
+      .dataset-copy p,
+      .scope-card p { font-size: 17px; }
       .premise { padding: 80px 0; min-height: 60svh; }
       .premise p { font-size: clamp(32px, 8vw, 54px); }
       .sticky-visual {
@@ -1710,7 +1747,7 @@
         max-height: 40svh;
         padding: 12px 14px;
       }
-      .method-stage svg { max-height: 200px; }
+      .method-stage > svg { max-height: 200px; }
       .method-stage-head > span { display: none; }
       .method-status { margin-top: 6px; gap: 4px; }
       .method-status span { font-size: 8px; line-height: 1.25; }
@@ -1724,14 +1761,14 @@
         padding: 22px 18px;
         border-radius: 14px;
       }
-      .step-card h2 { font-size: 23px; margin: 6px 0 8px; }
-      .step-card h3 { font-size: 17px; margin: 4px 0 6px; }
-      .step-card p { font-size: 13.5px; line-height: 1.45; }
+      .step-card h2 { font-size: 28px; margin: 6px 0 8px; }
+      .step-card h3 { font-size: 20px; margin: 4px 0 6px; }
+      .step-card p { font-size: 16px; line-height: 1.5; }
       .step-card p + p { margin-top: 8px; }
-      .method-equation { padding: 8px 10px; font-size: 12.5px; margin: 6px 0; border-radius: 8px; }
-      .inline-prompt { padding: 6px 8px; font-size: 11px; margin: 6px 0; }
+      .method-equation { padding: 8px 10px; font-size: 15px; margin: 6px 0; border-radius: 8px; }
+      .inline-prompt { padding: 6px 8px; font-size: 13px; margin: 6px 0; }
       .method-facts { gap: 4px; margin-top: 6px; }
-      .method-facts span { padding: 2px 6px; font-size: 9.5px; }
+      .method-facts span { padding: 2px 6px; font-size: 11.5px; }
       .persona-viz {
         width: 86%;
         max-width: 260px;
@@ -1756,6 +1793,145 @@
       .footer-bottom { display: block; }
       .footer-bottom span { display: block; margin-top: 8px; }
     }
+
+    @media (max-width: 900px) {
+      .method-sticky {
+        height: 52svh;
+        min-height: 0;
+        max-height: none;
+        padding: 12px;
+      }
+      .method-stage {
+        display: block;
+        place-items: normal;
+        overflow: visible;
+        margin-top: 10px;
+        border-radius: 8px;
+      }
+      .method-stage > svg {
+        display: none;
+      }
+      .method-stage-head b { font-size: 12px; }
+      .method-rail { margin-top: 8px; }
+      .method-mobile { height: 100%; }
+      .method-visual[data-state="0"] .method-mobile[data-panel="0"],
+      .method-visual[data-state="1"] .method-mobile[data-panel="1"],
+      .method-visual[data-state="2"] .method-mobile[data-panel="2"],
+      .method-visual[data-state="3"] .method-mobile[data-panel="3"] {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: clamp(6px, 1.5svh, 14px);
+      }
+      .method-mobile-row { display: flex; align-items: stretch; gap: 8px; }
+      .method-mobile-box {
+        flex: 1;
+        min-width: 0;
+        padding: clamp(8px, 1.5svh, 14px) 8px;
+        border: 1px solid var(--line-strong);
+        border-radius: 12px;
+        background: rgba(9,11,16,.65);
+        text-align: center;
+        font-size: 15px;
+        line-height: 1.35;
+      }
+      .method-mobile-box strong { display: block; font-size: 22px; font-weight: 600; }
+      .method-mobile-box small { display: block; font-size: 13px; color: var(--ink-soft); }
+      .method-mobile-box.high { border-color: var(--ex); }
+      .method-mobile-box.low { border-color: var(--er); }
+      .method-mobile-box.vector { border-color: var(--ip); }
+      .method-mobile-note { margin: 0; text-align: center; font-size: 14px; line-height: 1.4; color: var(--ink-soft); }
+      .method-mobile-arrow { align-self: center; color: var(--ip); font-size: 22px; }
+      .method-status { flex-shrink: 0; min-height: 18px; margin-top: 4px; }
+      .method-status span { font-size: 11px; }
+      .method-scene.step { padding-top: calc(52svh + 54px); }
+      .method-scene .step-card { min-height: 0; }
+    }
+
+    /* The same responsive diagram is used on desktop and mobile. */
+    .pipeline-stage { width: 100%; align-items: center; }
+    .pipeline-panel { display: none; width: 100%; max-width: 500px; margin: auto; gap: 18px; }
+    .method-visual[data-state="0"] .pipeline-panel[data-panel="0"],
+    .method-visual[data-state="1"] .pipeline-panel[data-panel="1"],
+    .method-visual[data-state="2"] .pipeline-panel[data-panel="2"],
+    .method-visual[data-state="3"] .pipeline-panel[data-panel="3"],
+    .method-visual[data-state="4"] .pipeline-panel[data-panel="4"] { display: flex; flex-direction: column; }
+    .pipeline-input { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 14px; border: 1px solid var(--line-strong); border-radius: 12px; background: var(--bg-soft); text-align: center; font-size: 16px; line-height: 1.4; }
+    .pipeline-input small { display: block; color: var(--ink-soft); font-size: 13px; }
+    .pipeline-document { display: grid; place-items: center; width: 28px; height: 34px; border: 1px solid var(--ip); border-radius: 4px; color: var(--ip); font-size: 26px; flex-shrink: 0; }
+    .pipeline-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+    .pipeline-box { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; padding: 18px 10px; border: 1px solid var(--line-strong); border-radius: 14px; background: rgba(9,11,16,.6); font-size: 18px; line-height: 1.3; text-align: center; }
+    .pipeline-box.high { border-color: var(--ex); background: rgba(85,214,160,.06); }
+    .pipeline-box.low { border-color: var(--er); background: rgba(255,141,102,.06); }
+    .pipeline-box.result { border-color: var(--ip); background: rgba(115,169,255,.07); }
+    .pipeline-label { color: var(--ink-soft); font-size: 14px; }
+    .pipeline-box strong { font-size: 36px; font-weight: 500; }
+    .pipeline-box small { font-size: 13px; color: var(--ink-soft); }
+    .pipeline-note { margin: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.4; text-align: center; }
+    .pipeline-branch { display: flex; justify-content: space-around; color: var(--ip); font-size: 24px; line-height: 1; }
+    .pipeline-arrow { color: var(--ip); text-align: center; font-size: 24px; line-height: 1; }
+    .pipeline-arrow span { color: var(--ink-soft); font-size: 14px; vertical-align: middle; }
+    .pipeline-model { display: flex; flex-direction: column; gap: 12px; padding: 18px; border: 1px solid var(--ip); border-radius: 16px; background: rgba(115,169,255,.04); }
+    .pipeline-layer { padding: 14px 10px; background: rgba(115,169,255,.12); border: 1px solid rgba(115,169,255,.2); border-radius: 8px; text-align: center; font-size: 16px; line-height: 1.3; }
+    .pipeline-layer.target { border-color: var(--ex); background: rgba(85,214,160,.12); }
+    .pipeline-tap { display: inline-block; margin-left: 18px; color: var(--ex); }
+    .pipeline-vector { display: flex; gap: 3px; margin: 10px 0; transform: skewY(-12deg); }
+    .pipeline-vector i { width: 20px; height: 22px; background: var(--ex); border: 1px solid var(--line-strong); }
+    .low .pipeline-vector i { background: var(--er); }
+    .pipeline-vector i:nth-child(even) { opacity: .5; }
+    .pipeline-formula { font-size: 22px; max-width: 100%; }
+    .pipeline-formula mjx-container { max-width: 100%; }
+    .pipeline-formula mjx-container > svg { max-width: 100%; height: auto; }
+    .pipeline-sweep { width: 100%; border-spacing: 5px; table-layout: fixed; text-align: center; font-size: 16px; }
+    .pipeline-sweep th { font-weight: 500; }
+    .pipeline-sweep td { padding: 10px 3px; border: 1px solid currentColor; border-radius: 5px; background: rgba(255,255,255,.03); }
+    .pipeline-sweep .er { color: var(--er); }
+    .pipeline-sweep .ip { color: var(--ip); }
+    .pipeline-sweep .ex { color: var(--ex); }
+    @media (max-width: 900px) {
+      .pipeline-stage { display: flex; }
+      .pipeline-panel { gap: 6px; }
+      .pipeline-input { padding: 8px; font-size: 14px; gap: 8px; }
+      .pipeline-input small { font-size: 12px; }
+      .pipeline-pair { gap: 8px; }
+      .pipeline-box { gap: 4px; padding: 8px; font-size: 16px; }
+      .pipeline-box strong { font-size: 26px; line-height: 1; }
+      .pipeline-label, .pipeline-box small { font-size: 12px; }
+      .pipeline-note { font-size: 12px; line-height: 1.3; }
+      .pipeline-arrow, .pipeline-branch { font-size: 18px; }
+      .pipeline-arrow span { font-size: 12px; }
+      .pipeline-model { padding: 8px; gap: 6px; }
+      .pipeline-layer { padding: 8px 4px; font-size: 14px; }
+      .pipeline-tap { margin-left: 8px; }
+      .pipeline-vector { margin: 5px 0; }
+      .pipeline-vector i { width: 16px; height: 17px; }
+      .pipeline-formula { font-size: 16px; }
+      .pipeline-sweep { border-spacing: 3px; font-size: 13px; line-height: 1.2; }
+      .pipeline-sweep td { padding: 4px 2px; }
+    }
+
+    @media (max-width: 900px) and (max-height: 620px) {
+      .pipeline-panel { gap: 4px; }
+      .pipeline-input { padding: 5px; }
+      .pipeline-model { padding: 6px; gap: 4px; }
+      .pipeline-layer { padding: 5px 4px; }
+      .pipeline-box { padding: 6px; gap: 3px; }
+    }
+
+    .math,
+    .mv-formula,
+    .method-equation,
+    .method-mobile-box strong.math {
+      font-family: var(--math);
+      font-weight: 400;
+      font-style: normal;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+
+    [data-tex] > mjx-container { margin: 0; }
+    .method-equation > mjx-container { max-width: 100%; }
+    .method-equation > mjx-container > svg { max-width: 100%; height: auto; }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -1818,7 +1994,7 @@
         <div class="sticky-visual">
           <span class="visual-caption">Intervention response · Llama-3.1-8B · layer 15</span>
           <div class="steer-viz" data-visual="steer" data-state="0" aria-label="Animated chart showing target and spillover effects of empathy steering">
-            <div class="steering-pill">EX vector · α = +1</div>
+            <div class="steering-pill">EX vector · <span class="math" data-tex="\alpha = +1">α = +1</span></div>
             <div class="steer-axis er" style="--target: 8%">
               <span class="axis-name">ER</span>
               <i class="axis-track"><i class="axis-fill"></i></i>
@@ -1852,7 +2028,7 @@
           <div class="step-card">
             <span class="step-index">02 / Target effect</span>
             <h2>Yes—across all three models.</h2>
-            <p>At layer 15 and α = +1, every model–dimension pair moved its target proxy score in the intended direction: <strong>9 out of 9</strong> target effects.</p>
+            <p>At layer 15 and <span class="math" data-tex="\alpha = +1">α = +1</span>, every model–dimension pair moved its target proxy score in the intended direction: <strong>9 out of 9</strong> target effects.</p>
           </div>
         </article>
 
@@ -2039,120 +2215,68 @@
             <div class="method-visual" data-visual="method" data-state="0">
               <div class="method-stage-head">
                 <span>CAA · mechanism-vector pipeline</span>
-                <b>04 steps</b>
+                <b>05 steps</b>
               </div>
-              <div class="method-rail" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+              <div class="method-rail" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
-              <div class="method-stage">
-                <svg viewBox="0 0 680 520" role="img" aria-labelledby="method-visual-title method-visual-desc">
-                  <title id="method-visual-title">Four-step mechanism-vector extraction and steering pipeline</title>
-                  <desc id="method-visual-desc">EPITOME labels form high and low response pools. Teacher-forced model activations are read at the final response token, the pool means are subtracted to form a vector, and that vector is added during generation before scoring all three empathy mechanisms.</desc>
-                  <defs>
-                    <marker id="method-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                      <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"></path>
-                    </marker>
-                    <marker id="method-arrow-ip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                      <path d="M0,0 L10,5 L0,10 z" fill="var(--ip)"></path>
-                    </marker>
-                  </defs>
-
-                  <circle class="mv-grid" cx="340" cy="266" r="205"></circle>
-                  <circle class="mv-grid" cx="340" cy="266" r="132"></circle>
-
-                  <g class="mv-part mv-labels">
-                    <text class="mv-label" x="40" y="76">EPITOME · 0 / 1 / 2 labels</text>
-                    <rect class="mv-box" x="40" y="98" width="180" height="82" rx="13"></rect>
-                    <circle cx="72" cy="139" r="18" fill="none" stroke="var(--er)"></circle>
-                    <text class="mv-mono" x="72" y="143" text-anchor="middle" fill="var(--er)">ER</text>
-                    <text class="mv-title" x="101" y="132">Acknowledge</text>
-                    <text class="mv-copy" x="101" y="151">emotional reaction</text>
-
-                    <rect class="mv-box" x="250" y="98" width="180" height="82" rx="13"></rect>
-                    <circle cx="282" cy="139" r="18" fill="none" stroke="var(--ip)"></circle>
-                    <text class="mv-mono" x="282" y="143" text-anchor="middle" fill="var(--ip)">IP</text>
-                    <text class="mv-title" x="311" y="132">Interpret</text>
-                    <text class="mv-copy" x="311" y="151">reflect experience</text>
-
-                    <rect class="mv-box" x="460" y="98" width="180" height="82" rx="13"></rect>
-                    <circle cx="492" cy="139" r="18" fill="none" stroke="var(--ex)"></circle>
-                    <text class="mv-mono" x="492" y="143" text-anchor="middle" fill="var(--ex)">EX</text>
-                    <text class="mv-title" x="521" y="132">Explore</text>
-                    <text class="mv-copy" x="521" y="151">invite elaboration</text>
-                  </g>
-
-                  <g class="mv-part mv-pools">
-                    <rect x="45" y="255" width="190" height="96" rx="15" fill="rgba(85,214,160,.075)" stroke="var(--ex)"></rect>
-                    <text class="mv-label" x="67" y="282" fill="var(--ex)">High-label pool</text>
-                    <text class="mv-number" x="67" y="324">100</text>
-                    <text class="mv-mono" x="133" y="322">y<tspan baseline-shift="sub" font-size="8">m</tspan> ≥ 1</text>
-
-                    <rect x="45" y="373" width="190" height="96" rx="15" fill="rgba(255,141,102,.07)" stroke="var(--er)"></rect>
-                    <text class="mv-label" x="67" y="400" fill="var(--er)">Zero-label pool</text>
-                    <text class="mv-number" x="67" y="442">100</text>
-                    <text class="mv-mono" x="133" y="440">y<tspan baseline-shift="sub" font-size="8">m</tspan> = 0</text>
-                  </g>
-
-                  <g class="mv-part mv-model">
-                    <rect class="mv-box" x="280" y="137" width="164" height="310" rx="20"></rect>
-                    <text class="mv-label" x="362" y="169" text-anchor="middle">Instruction-tuned LLM</text>
-                    <line x1="309" y1="204" x2="415" y2="204" stroke="var(--line-strong)"></line>
-                    <line x1="309" y1="238" x2="415" y2="238" stroke="var(--line-strong)"></line>
-                    <line x1="309" y1="272" x2="415" y2="272" stroke="var(--line-strong)"></line>
-                    <line x1="309" y1="306" x2="415" y2="306" stroke="var(--ip)" stroke-width="3"></line>
-                    <line x1="309" y1="340" x2="415" y2="340" stroke="var(--line-strong)"></line>
-                    <line x1="309" y1="374" x2="415" y2="374" stroke="var(--line-strong)"></line>
-                    <text class="mv-mono" x="362" y="416" text-anchor="middle" fill="var(--ip)">residual stream · layer ℓ</text>
-                    <circle cx="415" cy="306" r="6" fill="var(--ip)"></circle>
-                  </g>
-
-                  <g class="mv-part mv-readout">
-                    <path d="M235 303 C254 303 258 270 280 270" fill="none" stroke="var(--ex)" marker-end="url(#method-arrow)"></path>
-                    <path d="M235 421 C256 421 258 346 280 346" fill="none" stroke="var(--er)" marker-end="url(#method-arrow)"></path>
-                    <text class="mv-copy" x="45" y="215">teacher-forced seeker + observed response</text>
-                    <text class="mv-copy" x="455" y="297">final response token</text>
-                    <path d="M421 306 L515 306" fill="none" stroke="var(--ip)" stroke-dasharray="4 5"></path>
-                  </g>
-
-                  <g class="mv-part mv-vector">
-                    <path d="M444 306 L493 306" fill="none" stroke="var(--ip)" marker-end="url(#method-arrow-ip)"></path>
-                    <rect x="497" y="200" width="148" height="130" rx="18" fill="rgba(115,169,255,.08)" stroke="var(--ip)"></rect>
-                    <text class="mv-label" x="571" y="226" text-anchor="middle" fill="var(--ip)">Candidate vector</text>
-                    <text class="mv-number" x="571" y="269" text-anchor="middle">v<tspan baseline-shift="sub" font-size="17">ℓ</tspan><tspan baseline-shift="super" font-size="17">m</tspan></text>
-                    <text class="mv-copy" x="571" y="297" text-anchor="middle">mean(high)</text>
-                    <text class="mv-copy" x="571" y="315" text-anchor="middle">− mean(zero)</text>
-                    <text class="mv-formula mv-vector-equation" x="340" y="494" text-anchor="middle">v<tspan baseline-shift="sub" font-size="12">ℓ</tspan><tspan baseline-shift="super" font-size="12">m</tspan> = E<tspan baseline-shift="sub" font-size="12">Pₘ</tspan>[h<tspan baseline-shift="sub" font-size="12">ℓ</tspan>] − E<tspan baseline-shift="sub" font-size="12">Nₘ</tspan>[h<tspan baseline-shift="sub" font-size="12">ℓ</tspan>]</text>
-                  </g>
-
-                  <g class="mv-part mv-steer">
-                    <rect x="35" y="198" width="202" height="118" rx="16" fill="rgba(9,11,16,.78)" stroke="var(--line-strong)"></rect>
-                    <text class="mv-label" x="57" y="226">Generation prompt</text>
-                    <text class="mv-mono" x="57" y="259">Seeker post: {…}</text>
-                    <text class="mv-mono" x="57" y="282">Response:</text>
-                    <path d="M237 257 C260 257 256 220 280 220" fill="none" stroke="var(--muted)" marker-end="url(#method-arrow)"></path>
-                    <path d="M571 200 C571 90 363 89 363 137" fill="none" stroke="var(--ip)" stroke-width="2" stroke-dasharray="5 6" marker-end="url(#method-arrow-ip)"></path>
-                    <text class="mv-mono" x="475" y="87" text-anchor="middle" fill="var(--ip)">+ αv at every decoding step</text>
-                    <text class="mv-formula" x="340" y="494" text-anchor="middle">h<tspan baseline-shift="sub" font-size="12">ℓ,t</tspan> ← h<tspan baseline-shift="sub" font-size="12">ℓ,t</tspan> + αv<tspan baseline-shift="sub" font-size="12">ℓ</tspan><tspan baseline-shift="super" font-size="12">m</tspan></text>
-                  </g>
-
-                  <g class="mv-part mv-score">
-                    <path d="M444 337 L493 381" fill="none" stroke="var(--muted)" marker-end="url(#method-arrow)"></path>
-                    <rect x="497" y="357" width="148" height="110" rx="16" fill="rgba(9,11,16,.84)" stroke="var(--line-strong)"></rect>
-                    <text class="mv-label" x="571" y="384" text-anchor="middle">Score all three</text>
-                    <text class="mv-mono" x="520" y="416" fill="var(--er)">ER</text>
-                    <line x1="547" y1="412" x2="620" y2="412" stroke="var(--er)" stroke-width="3"></line>
-                    <text class="mv-mono" x="520" y="438" fill="var(--ip)">IP</text>
-                    <line x1="547" y1="434" x2="603" y2="434" stroke="var(--ip)" stroke-width="3"></line>
-                    <text class="mv-mono" x="520" y="460" fill="var(--ex)">EX</text>
-                    <line x1="547" y1="456" x2="629" y2="456" stroke="var(--ex)" stroke-width="3"></line>
-                  </g>
-                </svg>
+              <div class="method-stage pipeline-stage" role="region" aria-label="Mechanism steering pipeline">
+                <div class="pipeline-panel" data-panel="0">
+                  <div class="pipeline-input"><span class="pipeline-document" aria-hidden="true">≡</span><span>Seeker post + human response<small>EPITOME · choose ER, IP, or EX</small></span></div>
+                  <div class="pipeline-branch" aria-hidden="true"><span>↙</span><span>↘</span></div>
+                  <div class="pipeline-pair">
+                    <div class="pipeline-box high"><span class="pipeline-label">High-label pool</span><strong>100</strong><span class="math" data-tex="y_m \ge 1">y<sub>m</sub> ≥ 1</span><small>Mechanism present</small></div>
+                    <div class="pipeline-box low"><span class="pipeline-label">Zero-label pool</span><strong>100</strong><span class="math" data-tex="y_m = 0">y<sub>m</sub> = 0</span><small>Mechanism absent</small></div>
+                  </div>
+                  <p class="pipeline-note">Two response pools · sampled independently</p>
+                </div>
+                <div class="pipeline-panel" data-panel="1">
+                  <div class="pipeline-input">Seeker tokens + observed response tokens</div>
+                  <div class="pipeline-arrow" aria-hidden="true">↓</div>
+                  <div class="pipeline-model">
+                    <div class="pipeline-layer">Transformer block</div>
+                    <div class="pipeline-layer target">Target layer <span class="math" data-tex="\ell">ℓ</span><span class="pipeline-tap">→ <i class="math" data-tex="h_\ell(x)">h<sub>ℓ</sub>(x)</i></span></div>
+                    <div class="pipeline-layer">Transformer block</div>
+                  </div>
+                  <p class="pipeline-note">Teacher-forced pass · read the final response token</p>
+                </div>
+                <div class="pipeline-panel" data-panel="2">
+                  <div class="pipeline-pair">
+                    <div class="pipeline-box high"><span class="pipeline-label">High-label mean</span><div class="pipeline-vector" aria-hidden="true"><i></i><i></i><i></i><i></i></div><span class="math" data-tex="\mathbb{E}_{P_m}[h_\ell]">E<sub>Pₘ</sub>[h<sub>ℓ</sub>]</span></div>
+                    <div class="pipeline-box low"><span class="pipeline-label">Zero-label mean</span><div class="pipeline-vector" aria-hidden="true"><i></i><i></i><i></i><i></i></div><span class="math" data-tex="\mathbb{E}_{N_m}[h_\ell]">E<sub>Nₘ</sub>[h<sub>ℓ</sub>]</span></div>
+                  </div>
+                  <div class="pipeline-arrow">↓ <span>Subtract pool means</span></div>
+                  <div class="pipeline-box result"><span class="pipeline-label">Mechanism vector</span><span class="math pipeline-formula" data-tex="v_\ell^m=\mathbb{E}_{P_m}[h_\ell]-\mathbb{E}_{N_m}[h_\ell]">v<sub>ℓ</sub><sup>m</sup> = E<sub>Pₘ</sub>[h<sub>ℓ</sub>] − E<sub>Nₘ</sub>[h<sub>ℓ</sub>]</span></div>
+                </div>
+                <div class="pipeline-panel" data-panel="3">
+                  <table class="pipeline-sweep" aria-label="Candidate vectors by mechanism and layer">
+                    <thead><tr><th scope="col">Layer</th><th scope="col">3</th><th scope="col">7</th><th scope="col">…</th><th scope="col">31</th></tr></thead>
+                    <tbody>
+                      <tr class="er"><th scope="row">ER</th><td>▰</td><td>▰</td><td>…</td><td>▰</td></tr>
+                      <tr class="ip"><th scope="row">IP</th><td>▰</td><td>▰</td><td>…</td><td>▰</td></tr>
+                      <tr class="ex"><th scope="row">EX</th><td>▰</td><td>▰</td><td>…</td><td>▰</td></tr>
+                    </tbody>
+                  </table>
+                  <div class="pipeline-box result"><span class="pipeline-label">Steering strength</span><span class="math pipeline-formula" data-tex="\alpha\in\{-1,0,+1,+2\}">α ∈ {−1, 0, +1, +2}</span></div>
+                  <p class="pipeline-note">200 held-out seekers per layer/α cell</p>
+                </div>
+                <div class="pipeline-panel" data-panel="4">
+                  <div class="pipeline-input">New seeker post</div>
+                  <div class="pipeline-arrow" aria-hidden="true">↓</div>
+                  <div class="pipeline-model">
+                    <div class="pipeline-layer">Transformer block</div>
+                    <div class="pipeline-layer target"><span class="math pipeline-formula" data-tex="h_{\ell,t}\leftarrow h_{\ell,t}+\alpha v_\ell^m">h<sub>ℓ,t</sub> ← h<sub>ℓ,t</sub> + αv<sub>ℓ</sub><sup>m</sup></span></div>
+                    <div class="pipeline-layer">Steered response</div>
+                  </div>
+                  <p class="pipeline-note">Add at every decoding step → score ER · IP · EX</p>
+                </div>
               </div>
 
               <div class="method-status" aria-hidden="true">
                 <span>01 · label contrast</span>
                 <span>02 · representation readout</span>
                 <span>03 · direction formation</span>
-                <span>04 · causal intervention</span>
+                <span>04 · layer &amp; strength sweep</span>
+                <span>05 · inference-time steering</span>
               </div>
             </div>
           </div>
@@ -2166,7 +2290,7 @@
               <p>Choose one EPITOME mechanism m—ER, IP, or EX. From its filtered subset, sample <strong>100 responses labeled 1 or 2</strong> and <strong>100 labeled 0</strong>.</p>
               <p>The pools are not paired by seeker post. This is a contrast between pool-level means, repeated independently for each mechanism.</p>
               <div class="method-facts">
-                <span>high: y<sub>m</sub> ≥ 1</span><span>zero: y<sub>m</sub> = 0</span><span>seeded sampling</span>
+                <span>high: <i class="math" data-tex="y_m \ge 1">y<sub>m</sub> ≥ 1</i></span><span>zero: <i class="math" data-tex="y_m = 0">y<sub>m</sub> = 0</i></span><span>seeded sampling</span>
               </div>
             </div>
           </article>
@@ -2176,7 +2300,7 @@
               <span class="step-index">02 / Representation readout</span>
               <h3>Teacher-force the labeled response.</h3>
               <p>Feed the complete seeker–response sequence through the model while supplying the observed human response tokens. The model reads the response; it does not generate a new one.</p>
-              <p>At the response's final token, record the residual-stream hidden state h<sub>ℓ</sub>(x) at every candidate layer ℓ.</p>
+              <p>At the response's final token, record the residual-stream hidden state <span class="math" data-tex="h_{\ell}(x)">h<sub>ℓ</sub>(x)</span> at every candidate layer <span class="math" data-tex="\ell">ℓ</span>.</p>
               <div class="method-facts">
                 <span>layers 3, 7, …, 31</span><span>Qwen omits 31</span><span>final response token</span>
               </div>
@@ -2187,22 +2311,32 @@
             <div class="step-card">
               <span class="step-index">03 / Direction formation</span>
               <h3>Subtract zero-label activations from high-label activations.</h3>
-              <div class="method-equation">v<sub>ℓ</sub><sup>m</sup> = E<sub>x∈P<sub>m</sub></sub>[h<sub>ℓ</sub>(x)] − E<sub>x∈N<sub>m</sub></sub>[h<sub>ℓ</sub>(x)]</div>
+              <div class="method-equation" data-tex="v_{\ell}^{m}=\mathbb{E}_{x\in P_m}[h_{\ell}(x)]-\mathbb{E}_{x\in N_m}[h_{\ell}(x)]">v<sub>ℓ</sub><sup>m</sup> = E<sub>x∈P<sub>m</sub></sub>[h<sub>ℓ</sub>(x)] − E<sub>x∈N<sub>m</sub></sub>[h<sub>ℓ</sub>(x)]</div>
               <p>This Contrastive Activation Addition recipe yields one candidate direction for each mechanism, model, and layer. It is an experimentally induced direction—not an assumed universal empathy axis.</p>
             </div>
           </article>
 
-          <article class="method-scene step" id="method-intervention" data-step="3">
+          <article class="method-scene step" id="method-sweep" data-step="3">
             <div class="step-card">
-              <span class="step-index">04 / Causal intervention</span>
+              <span class="step-index">04 / Layer &amp; strength sweep</span>
+              <h3>Test where and how strongly to steer.</h3>
+              <p>For each model and mechanism, test candidate layers 3, 7, …, 31. Qwen omits layer 31.</p>
+              <div class="method-equation" data-tex="\alpha\in\{-1,0,+1,+2\}">α ∈ {−1, 0, +1, +2}</div>
+              <p>Generate responses for <strong>200 held-out, unique seekers per layer/α cell</strong>. Score ER, IP, and EX to measure both the target effect and spillover.</p>
+            </div>
+          </article>
+
+          <article class="method-scene step" id="method-intervention" data-step="4">
+            <div class="step-card">
+              <span class="step-index">05 / Inference-time steering</span>
               <h3>Add the direction while decoding. Score all three.</h3>
-              <div class="method-equation">h<sub>ℓ,t</sub> ← h<sub>ℓ,t</sub> + αv<sub>ℓ</sub><sup>m</sup></div>
-              <p>A forward hook modifies the current last-token state at every generation step. We sweep α ∈ {−1, 0, +1, +2}, then generate one response for each of 200 held-out seekers per layer/α cell.</p>
+              <div class="method-equation" data-tex="h_{\ell,t}\leftarrow h_{\ell,t}+\alpha v_{\ell}^{m}">h<sub>ℓ,t</sub> ← h<sub>ℓ,t</sub> + αv<sub>ℓ</sub><sup>m</sup></div>
+              <p>A forward hook modifies the current last-token state at every generation step. We sweep <span class="math" data-tex="\alpha \in \{-1,0,+1,+2\}">α ∈ {−1, 0, +1, +2}</span>, then generate one response for each of 200 held-out seekers per layer/<span class="math" data-tex="\alpha">α</span> cell.</p>
               <p>Every response is scored on ER, IP, and EX—not only the steered target—so the experiment exposes off-target effects.</p>
               <code class="inline-prompt">Seeker post: {seeker_post}
 Response:</code>
               <div class="method-facts">
-                <span>T = 0.8</span><span>top-p = 0.9</span><span>no empathy instruction</span><span>GPT-5-mini check at ℓ = 15</span>
+                <span><i class="math" data-tex="T = 0.8">T = 0.8</i></span><span>top-<i class="math" data-tex="p = 0.9">p = 0.9</i></span><span>no empathy instruction</span><span>GPT-5-mini check at <i class="math" data-tex="\ell = 15">ℓ = 15</i></span>
               </div>
             </div>
           </article>
@@ -2229,7 +2363,7 @@ Response:</code>
           <span>Target effects</span>
           <div class="finding-number">9/9</div>
           <h3>A shared operating point</h3>
-          <p>Every model–dimension pair moves in the intended direction at layer 15 and α = +1.</p>
+          <p>Every model–dimension pair moves in the intended direction at layer 15 and <span class="math" data-tex="\alpha = +1">α = +1</span>.</p>
         </article>
         <article class="finding-card reveal">
           <span>Largest shown spillover</span>
@@ -2302,6 +2436,48 @@ Response:</code>
   </noscript>
 
   <script>
+    // Keep readable HTML fallbacks until each expression has typeset successfully.
+    window.renderPaperMath = async () => {
+      const svgNS = 'http://www.w3.org/2000/svg';
+      for (const element of document.querySelectorAll('[data-tex]')) {
+        try {
+          const rendered = await MathJax.tex2svgPromise(element.dataset.tex, { display: false });
+          if (element.namespaceURI === svgNS) {
+            // Embed native MathJax paths at the original SVG text baseline/size.
+            const svg = rendered.querySelector('svg');
+            const box = svg.viewBox.baseVal;
+            const style = getComputedStyle(element);
+            const scale = parseFloat(style.fontSize) / 1000;
+            const width = box.width * scale;
+            const height = box.height * scale;
+            const anchor = element.getAttribute('text-anchor');
+            const x = Number(element.getAttribute('x')) - (anchor === 'middle' ? width / 2 : anchor === 'end' ? width : 0);
+            svg.setAttribute('x', x);
+            svg.setAttribute('y', Number(element.getAttribute('y')) + box.y * scale);
+            svg.setAttribute('width', width);
+            svg.setAttribute('height', height);
+            svg.style.cssText = `overflow: visible; color: ${style.fill};`;
+            svg.setAttribute('role', 'img');
+            svg.setAttribute('aria-label', element.textContent);
+            const group = document.createElementNS(svgNS, 'g');
+            group.setAttribute('class', element.getAttribute('class') || '');
+            group.dataset.mathRendered = 'true';
+            group.append(svg);
+            element.replaceWith(group);
+          } else {
+            rendered.setAttribute('role', 'math');
+            rendered.setAttribute('aria-label', element.textContent);
+            element.replaceChildren(rendered);
+            element.dataset.mathRendered = 'true';
+          }
+        } catch (error) {
+          console.warn('Could not typeset a formula; keeping its text fallback.', error);
+        }
+      }
+      window.dispatchEvent(new Event('resize'));
+      document.documentElement.dataset.mathReady = 'true';
+    };
+
     (() => {
       const root = document.documentElement;
       const progressBar = document.querySelector('.progress');
