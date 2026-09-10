@@ -47,7 +47,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 104px;
+      scroll-padding-top: 44px;
       background: var(--bg);
     }
 
@@ -149,7 +149,52 @@
       }
     }
 
+    .reading-bar {
+      position: fixed;
+      inset: 3px 0 auto;
+      z-index: 90;
+      height: 29px;
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(9, 11, 16, .94);
+      backdrop-filter: blur(12px);
+      color: var(--ink-soft);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .reading-bar span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: max(18px, env(safe-area-inset-right));
+      bottom: max(18px, env(safe-area-inset-bottom));
+      z-index: 90;
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      background: var(--panel-solid);
+      color: var(--ink);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .3);
+      cursor: pointer;
+    }
+
+    .back-to-top:hover { background: #252b38; }
+    .back-to-top:focus-visible { outline: 2px solid var(--ip); outline-offset: 4px; }
+
     .topbar {
+      display: none;
       position: fixed;
       z-index: 80;
       top: 3px;
@@ -1462,61 +1507,48 @@
     @media (max-width: 900px) {
       :root { --page: min(100% - 34px, 720px); }
       .progress {
-        top: 2px;
-        top: max(2px, env(safe-area-inset-top));
-        right: 8px;
-        left: 8px;
-        height: 4px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, .2);
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 3px;
+        z-index: 1000;
+        border-radius: 0;
+        background: rgba(255, 255, 255, .15);
       }
       .progress > i { box-shadow: 0 0 12px rgba(115, 169, 255, .75); }
       .topbar {
-        top: 8px;
-        top: calc(max(2px, env(safe-area-inset-top)) + 6px);
+        display: none !important;
       }
       .chapter-nav { display: none; }
       .top-actions a:first-child { display: none; }
-      .hero { padding-top: 116px; }
+      .hero { padding-top: 48px; }
       .hero-copy { width: 100%; }
       .hero-orbit { right: -32vw; width: 86vw; opacity: .32; }
-      .story { grid-template-columns: 1fr; gap: 0; padding-top: 50px; }
+      .story { grid-template-columns: 1fr; gap: 0; padding-top: 14px; }
       .story > .visual-column,
       .story > .step-column { grid-column: 1; grid-row: 1; }
-      /* Mobile scrollytelling: the visual pins below the topbar and each step is a
-         full-height sticky layer with its card at the bottom, so every incoming
-         card slides up over the previous one.
-         The visual column is shortened by the gap between the pinned visual's
-         bottom and the viewport bottom, so the visual un-pins at exactly the
-         scroll offset where the steps do and both leave together. The script
-         refines this margin from measured heights. */
       .story > .visual-column {
         position: relative;
         z-index: 0;
-        margin-bottom: calc(48vh - 78px);
-        margin-bottom: calc(48svh - 78px);
+        margin-bottom: calc(60svh - 10px);
       }
       .sticky-visual {
         position: sticky;
-        top: 78px;
-        min-height: 52vh;
-        min-height: 52svh;
+        top: 42px;
+        min-height: 38svh;
+        max-height: 40svh;
       }
       .step-column {
         position: relative;
         z-index: 3;
         margin-top: 0;
-        padding: 20vh 0 0;
-        padding-top: 20svh;
+        padding: 0;
       }
-      /* Dwell space inside the content box: sticky children are bounded by it,
-         so this lets the last step pin like the others instead of scrolling
-         straight past its reading position. */
       .step-column::after,
       .method-scenes::after {
         display: block;
-        height: 40vh;
-        height: 40svh;
+        height: 35svh;
         content: "";
       }
       .step {
@@ -1527,64 +1559,85 @@
         height: 100svh;
         min-height: 100vh;
         min-height: 100svh;
-        padding: 76px 0 20px;
-        align-items: flex-end;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: calc(40svh + 48px) 0 76px;
         opacity: 1;
         pointer-events: none;
         transform: none;
-        transition-duration: .28s;
+        transition: opacity .25s ease;
       }
       .step.active { opacity: 1; transform: none; }
-      /* Cards already covered by a later one fade out so taller cards do not
-         peek out from behind shorter ones. */
       .step.past { opacity: 0; }
       .step .step-card { pointer-events: auto; }
       .step.past .step-card { pointer-events: none; }
       .step-card {
         position: relative;
+        flex: 0 1 auto;
+        min-height: min(32svh, calc(60svh - 124px));
         width: 100%;
-        max-height: calc(100svh - 96px);
         max-width: none;
-        padding: 24px;
+        padding: 24px 22px;
         overflow-y: auto;
-        overscroll-behavior: contain;
         border: 1px solid var(--line);
         border-radius: 16px;
         background: var(--bg);
-        box-shadow: 0 -24px 42px rgba(9, 11, 16, .92), 0 18px 50px rgba(0, 0, 0, .32);
+        box-shadow: 0 16px 40px rgba(9, 11, 16, .9), 0 4px 16px rgba(0, 0, 0, .4);
       }
+      .step-card h2 {
+        font-size: clamp(24px, 6.2vw, 32px);
+        margin: 8px 0 12px;
+        line-height: 1.05;
+        letter-spacing: -.03em;
+      }
+      .step-card h3 {
+        font-size: clamp(18px, 4.8vw, 22px);
+        margin: 6px 0 10px;
+        line-height: 1.15;
+      }
+      .step-card p {
+        font-size: 14.5px;
+        line-height: 1.5;
+      }
+      .step-card p + p { margin-top: 10px; }
       .chapter-head { display: block; }
       .chapter-head h2 { margin: 16px 0 24px; }
       .method-dataset { grid-template-columns: 1fr; }
       .dataset-copy { border-right: 0; border-bottom: 1px solid var(--line); }
       .method-meta { grid-template-columns: 1fr 1fr; }
-      .method-scrolly { grid-template-columns: 1fr; gap: 0; }
+      .method-scrolly { grid-template-columns: 1fr; gap: 0; margin-top: 24px; }
       .method-visual-column,
       .method-scenes { grid-column: 1; grid-row: 1; }
       .method-visual-column {
         position: relative;
         z-index: 0;
-        margin-bottom: calc(48vh - 78px);
-        margin-bottom: calc(48svh - 78px);
+        margin-bottom: calc(60svh - 10px);
       }
       .method-sticky {
-        top: 78px;
-        min-height: 52vh;
-        min-height: 52svh;
+        position: sticky;
+        top: 42px;
+        min-height: 38svh;
+        max-height: 40svh;
         border-radius: 18px;
+        padding: 14px 16px;
       }
       .method-scenes {
         position: relative;
         z-index: 2;
-        padding: 20vh 0 0;
-        padding-top: 20svh;
+        padding: 0;
       }
       .method-scene.step {
         height: 100vh;
         height: 100svh;
         min-height: 100vh;
         min-height: 100svh;
-        align-items: flex-end;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: calc(40svh + 48px) 0 76px;
       }
       .method-scene .step-card {
         max-width: none;
@@ -1611,42 +1664,94 @@
     }
 
     @media (max-width: 560px) {
-      body { font-size: 15px; }
-      .topbar { padding: 14px 17px; }
+      body { font-size: 14px; }
+      .topbar { display: none !important; }
       .brand span { display: none; }
-      .top-actions a { padding: 8px 11px; }
-      h1 { font-size: clamp(55px, 18vw, 84px); }
+      .top-actions a { padding: 6px 9px; font-size: 12px; }
+      h1 { font-size: clamp(44px, 14vw, 68px); }
       h1 span { transform: translateX(0); }
-      .hero-deck { font-size: 17px; }
-      .premise { padding: 100px 0; }
+      .hero-deck { font-size: 15px; }
+      .premise { padding: 80px 0; min-height: 60svh; }
+      .premise p { font-size: clamp(32px, 8vw, 54px); }
       .sticky-visual {
-        min-height: 48vh;
-        min-height: 48svh;
-        border-radius: 18px;
+        top: 42px;
+        min-height: 38svh;
+        max-height: 40svh;
+        border-radius: 16px;
       }
       .story > .visual-column,
       .method-visual-column {
-        margin-bottom: calc(52vh - 78px);
-        margin-bottom: calc(52svh - 78px);
+        margin-bottom: calc(60svh - 10px);
       }
-      .steer-viz { transform: scale(.88); }
-      .geometry-viz { width: 96%; }
-      .cosine-readout { right: 0; bottom: -2%; }
-      .chapter { padding: 96px 0; }
-      .method-meta { grid-template-columns: 1fr; }
+      .steer-viz {
+        transform: scale(.8);
+        transform-origin: center center;
+        height: 320px;
+      }
+      .steer-axis { height: 56px; gap: 8px; }
+      .steer-axis.er { top: 40px; }
+      .steer-axis.ip { top: 118px; }
+      .steer-axis.ex { top: 196px; }
+      .spillover { bottom: 10px; font-size: 10px; }
+      .geometry-viz { width: 88%; max-width: 270px; margin: 0 auto; }
+      .cosine-readout {
+        right: 0;
+        bottom: 0;
+        padding: 6px 10px;
+        width: 140px;
+        font-size: 10.5px;
+        border-radius: 10px;
+      }
+      .chapter { padding: 72px 0; }
+      .method-meta { grid-template-columns: 1fr; gap: 8px; }
       .method-sticky {
-        min-height: 48vh;
-        min-height: 48svh;
-        padding: 17px;
+        top: 42px;
+        min-height: 38svh;
+        max-height: 40svh;
+        padding: 12px 14px;
       }
+      .method-stage svg { max-height: 200px; }
       .method-stage-head > span { display: none; }
+      .method-status { margin-top: 6px; gap: 4px; }
+      .method-status span { font-size: 8px; line-height: 1.25; }
+      .step,
       .method-scene.step {
-        height: 100vh;
         height: 100svh;
-        min-height: 100vh;
         min-height: 100svh;
+        padding-top: calc(40svh + 48px);
       }
-      .method-equation { padding: 14px; font-size: 19px; }
+      .step-card {
+        padding: 22px 18px;
+        border-radius: 14px;
+      }
+      .step-card h2 { font-size: 23px; margin: 6px 0 8px; }
+      .step-card h3 { font-size: 17px; margin: 4px 0 6px; }
+      .step-card p { font-size: 13.5px; line-height: 1.45; }
+      .step-card p + p { margin-top: 8px; }
+      .method-equation { padding: 8px 10px; font-size: 12.5px; margin: 6px 0; border-radius: 8px; }
+      .inline-prompt { padding: 6px 8px; font-size: 11px; margin: 6px 0; }
+      .method-facts { gap: 4px; margin-top: 6px; }
+      .method-facts span { padding: 2px 6px; font-size: 9.5px; }
+      .persona-viz {
+        width: 86%;
+        max-width: 260px;
+        height: 260px;
+        margin: 0 auto;
+      }
+      .persona-score strong { font-size: clamp(44px, 13vw, 62px); }
+      .persona-score span { margin-top: 6px; font-size: 9px; }
+      .persona-node:nth-of-type(1) { transform: translate(-100px, -74px); }
+      .persona-node:nth-of-type(2) { transform: translate(98px, -56px); }
+      .persona-node:nth-of-type(3) { transform: translate(-106px, 54px); }
+      .persona-node:nth-of-type(4) { transform: translate(104px, 72px); }
+      .persona-node:nth-of-type(5) { transform: translate(8px, -112px); }
+      .persona-node:nth-of-type(6) { transform: translate(-12px, 112px); }
+      .persona-viz[data-state="2"] .persona-node:nth-of-type(1) { transform: translate(-114px, -82px); }
+      .persona-viz[data-state="2"] .persona-node:nth-of-type(2) { transform: translate(110px, -68px); }
+      .persona-viz[data-state="2"] .persona-node:nth-of-type(3) { transform: translate(-118px, 60px); }
+      .persona-viz[data-state="2"] .persona-node:nth-of-type(4) { transform: translate(114px, 82px); }
+      .persona-viz[data-state="2"] .persona-node:nth-of-type(5) { transform: translate(10px, -124px); }
+      .persona-viz[data-state="2"] .persona-node:nth-of-type(6) { transform: translate(-14px, 124px); }
       .scope-grid { grid-template-columns: 1fr; }
       .footer-bottom { display: block; }
       .footer-bottom span { display: block; margin-top: 8px; }
@@ -1668,16 +1773,10 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
-
-  <header class="topbar" aria-label="Page header">
-    <div class="topbar-inner">
-      <a class="brand" href="#top">Empathy <span>/ interactive paper</span></a>
-      <nav class="top-actions" aria-label="Paper links">
-        <a href="index.html">Static page</a>
-        <a href="https://github.com/hjhj97/Empathy-Is-Steerable-but-Multi-Axial">GitHub ↗</a>
-      </nav>
-    </div>
-  </header>
+  <header class="reading-bar" aria-label="Current section"><span id="reading-section">Introduction</span></header>
+  <button class="back-to-top" type="button" aria-label="Back to top" title="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>
+  </button>
 
   <nav class="chapter-nav" aria-label="Page sections">
     <a class="active" href="#top" aria-label="Introduction"></a>
@@ -1867,7 +1966,7 @@
       </div>
     </section>
 
-    <section class="chapter" id="method" data-nav="4" data-story="method">
+    <section class="chapter" id="method" data-nav="4">
       <div class="chapter-head reveal">
         <div>
           <span class="section-label">Method</span>
@@ -1934,7 +2033,7 @@
         </div>
       </div>
 
-      <div class="method-scrolly">
+      <div class="method-scrolly" data-story="method">
         <div class="method-visual-column">
           <div class="method-sticky">
             <div class="method-visual" data-visual="method" data-state="0">
@@ -2116,7 +2215,7 @@ Response:</code>
       </aside>
     </section>
 
-    <section class="chapter" aria-labelledby="findings-title">
+    <section class="chapter" aria-labelledby="findings-title" data-reading-label="Key findings">
       <div class="chapter-head reveal">
         <div>
           <span class="section-label">In three numbers</span>
@@ -2169,7 +2268,7 @@ Response:</code>
     </section>
   </main>
 
-  <footer>
+  <footer data-reading-label="References & credits">
     <div class="footer-main">
       <div>
         <span class="section-label">Read the work</span>
@@ -2206,10 +2305,10 @@ Response:</code>
     (() => {
       const root = document.documentElement;
       const progressBar = document.querySelector('.progress');
-      const topbar = document.querySelector('.topbar');
       const heroOrbit = document.querySelector('.hero-orbit');
       const navItems = [...document.querySelectorAll('.chapter-nav a')];
-      const navSections = [...document.querySelectorAll('[data-nav]')];
+      const readingLabel = document.getElementById('reading-section');
+      const readingSections = [...document.querySelectorAll('main > section, footer')];
       const stories = [...document.querySelectorAll('[data-story]')];
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const mobileScrolly = window.matchMedia('(max-width: 900px)');
@@ -2221,6 +2320,23 @@ Response:</code>
         activeIndex: -1
       }));
       let ticking = false;
+
+      document.querySelector('.back-to-top').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' });
+      });
+
+      const updateReadingSection = () => {
+        const readingLine = Math.min(window.innerHeight * .25, 160);
+        let current = readingSections[0];
+        readingSections.forEach(section => {
+          if (section.getBoundingClientRect().top <= readingLine) current = section;
+        });
+        const navIndex = current.dataset.nav;
+        const label = current.dataset.readingLabel || current.getAttribute('aria-label') ||
+          navItems[Number(navIndex)]?.getAttribute('aria-label') || 'Introduction';
+        if (readingLabel.textContent !== label) readingLabel.textContent = label;
+        navItems.forEach((item, index) => item.classList.toggle('active', String(index) === navIndex));
+      };
 
       const startPersonaCounter = (visual, activeStep) => {
         if (!visual.classList.contains('persona-viz') || activeStep < 1) return;
@@ -2255,14 +2371,22 @@ Response:</code>
       // Mobile only: shorten each visual column so the pinned visual releases at the
       // same scroll offset as the full-height sticky steps. CSS sets an estimate from
       // viewport units; this corrects it when the visual's content makes it taller.
-      const alignStoryExits = () => {
+      let lastAlignedHeight = 0;
+      const alignStoryExits = (force = false) => {
+        if (!mobileScrolly.matches) {
+          storyControllers.forEach(({ visualShell }) => {
+            visualShell?.parentElement?.style.removeProperty('margin-bottom');
+          });
+          return;
+        }
+        const currentVh = window.innerHeight;
+        // Avoid layout thrashing from minor URL bar height changes during mobile scroll
+        if (!force && lastAlignedHeight && Math.abs(currentVh - lastAlignedHeight) < 36) return;
+        lastAlignedHeight = currentVh;
+
         storyControllers.forEach(({ visualShell, steps }) => {
           const column = visualShell?.parentElement;
           if (!column || !steps.length) return;
-          if (!mobileScrolly.matches) {
-            column.style.removeProperty('margin-bottom');
-            return;
-          }
           const stickyTop = Number.parseFloat(window.getComputedStyle(visualShell).top) || 0;
           const gap = steps[0].offsetHeight - stickyTop - visualShell.offsetHeight;
           column.style.marginBottom = `${Math.max(0, gap)}px`;
@@ -2279,13 +2403,24 @@ Response:</code>
 
           let activeIndex = 0;
           if (mobileScrolly.matches) {
-            // Each step pins when its top reaches 0 and its card sits at the bottom of
-            // the step, so the step's top is how far the card still has to travel.
-            // Advance once 65% of the incoming card has slid into place, so the
-            // visual changes while the new card is arriving rather than afterwards.
+            // Mobile scrollytelling with hysteresis buffer to prevent boundary chattering.
+            // When moving forward, activate the step once step.top <= 80px.
+            // When moving backward, keep active until step.top > 140px.
+            const current = controller.activeIndex >= 0 ? controller.activeIndex : 0;
+            const thresholdEnter = 80;
+            const thresholdExit = 140;
+
             controller.steps.forEach((step, index) => {
-              const card = step.querySelector('.step-card') || step;
-              if (step.getBoundingClientRect().top <= card.offsetHeight * .35) activeIndex = index;
+              if (index === 0) {
+                activeIndex = 0;
+                return;
+              }
+              const stepTop = step.getBoundingClientRect().top;
+              if (current >= index) {
+                if (stepTop <= thresholdExit) activeIndex = index;
+              } else {
+                if (stepTop <= thresholdEnter) activeIndex = index;
+              }
             });
           } else {
             const triggerY = viewportHeight * .5;
@@ -2305,8 +2440,8 @@ Response:</code>
         const progress = Math.min(1, Math.max(0, scrollTop / max));
         root.style.setProperty('--progress', progress.toFixed(4));
         progressBar.setAttribute('aria-valuenow', String(Math.round(progress * 100)));
-        topbar.classList.toggle('scrolled', scrollTop > 36);
         updateStoryStates();
+        updateReadingSection();
 
         if (!reducedMotion && heroOrbit) {
           const heroProgress = Math.min(1, scrollTop / Math.max(1, window.innerHeight));
@@ -2348,16 +2483,7 @@ Response:</code>
 
       document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
 
-      const navObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const index = Number(entry.target.dataset.nav);
-          navItems.forEach((item, itemIndex) => item.classList.toggle('active', itemIndex === index));
-        });
-      }, { rootMargin: '-44% 0px -44% 0px', threshold: 0 });
-
-      navSections.forEach((section) => navObserver.observe(section));
-      alignStoryExits();
+      alignStoryExits(true);
       updateScroll();
 
       // Land directly on shared chapter links without replaying a long smooth scroll.
